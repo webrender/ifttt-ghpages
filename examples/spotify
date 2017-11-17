@@ -1,1 +1,1 @@
----|||layout: post|||title: {{TrackName}}}|||network: spotify|||date: {{AddedAt}}|||---|||<<<<iframe class="spotify_audio_player" src="https://embed.spotify.com/?uri={{TrackURL}}&view=coverart" frameborder="0" allowtransparency="true" width="100%" height="80">>>>c
+---|||layout: post|||title: {{TrackName}}|||network: spotify|||date: {{AddedAt}}|||---|||<<<<iframe class="spotify_audio_player" src="https://embed.spotify.com/?uri={{TrackURL}}&view=coverart" frameborder="0" allowtransparency="true" width="100%" height="80">>>><<<</iframe>>>>
