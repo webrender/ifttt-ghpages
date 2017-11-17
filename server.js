@@ -11,24 +11,18 @@ var GitHubApi = require('github');
 
 var github = new GitHubApi();
 
-app.use(bodyParser.json());
-
+app.use(bodyParser.text());
 app.post("/", (req, res) => {
-  if (req.body[0] !== process.env.WEBHOOK_TOKEN)
+  if (req.query.token !== process.env.WEBHOOK_TOKEN)
     res.sendStatus(400);
-  var date = new Date();;
-  var post = '---\n';
-  Object.keys(req.body[1]).forEach(key => {
-    if (key === 'date') {
-      date = chrono.parseDate(req.body[1].date);
-      post += `date: ${date.toISOString()}\n`;
-    } else {
-      post += `${key}: ${req.body[1][key]}\n`;
-    }
-  })
-  post += '---\n';
-  post += decodeURIComponent(req.body[2]);
-  console.log(post);
+  var body = req.body.replace(/\|\|\|/g, '\n');
+  var title;
+  var titleSearch = body.match(/title: (.*?)\n/);
+  if (titleSearch.length > 0) {
+    title = titleSearch[1];
+  }
+  var dateSearch = body.match(/date: (.*?)\n/);
+  var date = dateSearch[1] ? chrono.parseDate(dateSearch[1]) : new Date();
   github.authenticate({
     type: 'oauth',
     token: process.env.GH_TOKEN
@@ -36,15 +30,15 @@ app.post("/", (req, res) => {
   github.repos.createFile({
     owner: process.env.GH_USER,
     repo: process.env.GH_REPO,
-    path: `_posts/${moment(date).format('YYYY-MM-DD-HH-mm-ss-')}${req.body[1].title}.html`,
+    path: `_posts/${moment(date).format('YYYY-MM-DD-HH-mm-ss-')}${title}.html`,
     message: 'post via ifttt-ghpages',
-    content: new Buffer(post).toString('base64')
-  }, function(err, res) {
+    content: new Buffer(body).toString('base64')
+  }, function(err, resp) {
     if (err) {
       console.log('error: ' + err);
       res.sendStatus(500);
     } else {
-      console.log('success: ' + res);
+      console.log('success: ' + resp);
       res.sendStatus(200);
     }
   });
