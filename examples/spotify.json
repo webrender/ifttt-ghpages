@@ -1,0 +1,10 @@
+[
+  "YOUR-TOKEN-HERE",
+  {
+    "layout": "post",
+    "title": "<<<TrackName>>>",
+    "network": "spotify",
+    "date":"<<<{{AddedAt}}>>>"
+  },
+  "%3Ciframe%20class%3D%22spotify_audio_player%22%20src%3D%22https%3A%2F%2Fembed.spotify.com%2F%3Furi%3D<<<{{TrackURL}}>>>%26amp%3Bview%3Dcoverart%22%20frameborder%3D%220%22%20allowtransparency%3D%22true%22%20width%3D%22100%25%22%20height%3D%2280%22%3E%3C%2Fiframe%3E"
+]
