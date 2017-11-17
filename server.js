@@ -39,12 +39,12 @@ app.post("/", (req, res) => {
     path: `_posts/${moment(date).format('YYYY-MM-DD-HH-mm-ss-')}${req.body[1].title}.html`,
     message: 'post via ifttt-ghpages',
     content: new Buffer(post).toString('base64')
-  }, function(err, res) {
+  }, function(err, resp) {
     if (err) {
       console.log('error: ' + err);
       res.sendStatus(500);
     } else {
-      console.log('success: ' + res);
+      console.log('success: ' + resp);
       res.sendStatus(200);
     }
   });

@@ -1,0 +1,10 @@
+[
+  "YOUR-TOKEN-HERE",
+  {
+    "layout": "post",
+    "title": "<<<{{UserName}}>>> - Tweet",
+    "network": "twitter",
+    "date":"<<<{{CreatedAt}}>>>"
+  },
+  "<<<{{TweetEmbedCode}}>>>"
+]
