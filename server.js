@@ -11,23 +11,19 @@ var GitHubApi = require('github');
 
 var github = new GitHubApi();
 
-// http://expressjs.com/en/starter/static-files.html
-app.use(express.static('public'));
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
 
 app.post("/", (req, res) => {
   if (req.body[0] !== process.env.WEBHOOK_TOKEN)
     res.sendStatus(400);
   var date = new Date();;
   var post = '---\n';
-  Object.keys(req.body[0]).forEach(key => {
+  Object.keys(req.body[1]).forEach(key => {
     if (key === 'date') {
       date = chrono.parseDate(req.body[1].date);
       post += `date: ${date.toISOString()}\n`;
     } else {
-      post += `${key}: ${req.body[0][key]}\n`;
+      post += `${key}: ${req.body[1][key]}\n`;
     }
   })
   post += '---\n';
@@ -44,12 +40,14 @@ app.post("/", (req, res) => {
     message: 'post via ifttt-jekyll',
     content: new Buffer(post).toString('base64')
   }, function(err, res) {
-    if (err)
+    if (err) {
       console.log('error: ' + err);
-    else
+      res.sendStatus(500);
+    } else {
       console.log('success: ' + res);
-  })
-  res.sendStatus(200);
+      res.sendStatus(200);
+    }
+  });
 });
 
 
