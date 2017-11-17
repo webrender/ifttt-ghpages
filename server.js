@@ -11,11 +11,7 @@ var GitHubApi = require('github');
 
 var github = new GitHubApi();
 
-// http://expressjs.com/en/starter/static-files.html
-app.use(express.static('public'));
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
 
 app.post("/", (req, res) => {
   if (req.body[0] !== process.env.WEBHOOK_TOKEN)
