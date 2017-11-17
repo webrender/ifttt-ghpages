@@ -4,10 +4,7 @@
 // init project
 var express = require('express');
 var bodyParser = require('body-parser');
-var rp = require('request-promise');
-var Bluebird = require('bluebird');
 var moment = require('moment');
-var getColors = require('get-image-colors');
 var chrono = require('chrono-node');
 var app = express();
 var GitHubApi = require('github');
@@ -21,18 +18,20 @@ app.use(bodyParser.json());
 
 
 app.post("/", (req, res) => {
+  if (req.body[0] !== process.env.WEBHOOK_TOKEN)
+    res.sendStatus(400);
   var date = new Date();;
   var post = '---\n';
   Object.keys(req.body[0]).forEach(key => {
     if (key === 'date') {
-      date = chrono.parseDate(req.body[0].date);
+      date = chrono.parseDate(req.body[1].date);
       post += `date: ${date.toISOString()}\n`;
     } else {
       post += `${key}: ${req.body[0][key]}\n`;
     }
   })
   post += '---\n';
-  post += decodeURIComponent(req.body[1]);
+  post += decodeURIComponent(req.body[2]);
   console.log(post);
   github.authenticate({
     type: 'oauth',
