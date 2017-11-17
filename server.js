@@ -37,19 +37,21 @@ app.post("/", (req, res) => {
     type: 'oauth',
     token: process.env.GH_TOKEN
   })
-  // github.repos.createFile({
-  //   owner: process.env.GH_USER,
-  //   repo: process.env.GH_REPO,
-  //   path: `_posts/${moment(date).format('YYYY-MM-DD-HH-mm-ss-')}.html`,
-  //   message: 'post via ifttt-jekyll',
-  //   content: new Buffer(post).toString('base64')
-  // }, function(err, res) {
-  //   if (err)
-  //     console.log('error: ' + err);
-  //   else
-  //     console.log('success: ' + res);
-  // })
-  res.sendStatus(200);
+  github.repos.createFile({
+    owner: process.env.GH_USER,
+    repo: process.env.GH_REPO,
+    path: `_posts/${moment(date).format('YYYY-MM-DD-HH-mm-ss-')}.html`,
+    message: 'post via ifttt-jekyll',
+    content: new Buffer(post).toString('base64')
+  }, function(err, res) {
+    if (err) {
+      console.log('error: ' + err);
+      res.sendStatus(500);
+    } else {
+      console.log('success: ' + res);
+      res.sendStatus(200);
+    }
+  });
 });
 
 
