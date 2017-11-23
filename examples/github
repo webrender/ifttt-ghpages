@@ -1,0 +1,54 @@
+---|||layout: post|||network: github|||user: {{AuthorUsername}}|||repo: {{RepositoryName}}|||date: {{CreatedAt}}|||pr_title: {{PullRequestTitle}}|||pr_url: {{PullRequestURL}}|||title: {{PullRequestTitle}}|||tags:|||- IFTTT|||- Github|||---||| {{PullRequestBody}}
+
+post markup:
+
+<blockquote class="github-pull-request">
+  <a href="http://github.com/{{ page.user }}">{{ page.user }}</a> created a pull request in {{ page.repo }}
+  <h2 lang="en" dir="ltr">
+      <a href="{{ page.pr_url }}" target="_blank">
+          {{ page.pr_title }}
+      </a>
+  </h2>
+  {{ page.content }}
+  <hr />
+  {{ page.date | date: "%m %d, %Y" }}
+  <img src="/assets/github.svg" class="gh-logo" />
+</blockquote>
+
+
+post styles:
+
+blockquote.github-pull-request {
+  background: #fdfdfd;
+  border-radius: 3px;
+  border: 1px solid #e1e8ed;
+  padding: 15px;
+  font-style: normal;
+  font-size: 12px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  letter-spacing: normal;
+  
+  p {
+    margin-top: 5px;
+  }
+  
+  h2, h2 a{
+    font-weight: bold;
+    color: black;
+    line-height: 22px;
+    margin: 10px 0;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid #e1e8ed;
+    margin-bottom: 4px;
+  }
+
+  .gh-logo {
+    height: 16px;
+    width: 16px;
+    float: right;
+    margin: 0 4px;
+  }
+}
