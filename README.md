@@ -1,6 +1,6 @@
 # ifttt-ghpages
 
-Hello! 👋 This is a script which lets you create Jekyll entries in a Github repo from IFTTT events, using the IFTTT Webhook action. You can see it in use on [https://webrender.github.io](https://webrender.github.io).
+Hello! 👋 This is a script which lets you create Jekyll entries in a Github repo from IFTTT events, using the IFTTT Webhook action. You can see it in use on [https://webrender.net](https://webrender.net).
 
 # Setup
 
