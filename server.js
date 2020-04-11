@@ -30,6 +30,11 @@ app.post("/", (req, res) => {
     }
     var dateSearch = body.match(/date: (.*?)\n/);
     var date = dateSearch[1] ? chrono.parseDate(dateSearch[1]) : new Date();
+    var networkSearch = body.match(/network: (.*?)\n/);
+    if (networkSearch && networkSearch[1].includes('github_rss')) {
+      var regex = /href="/gi;
+      body = body.replace(regex, 'href="https://github.com')
+    }
     github.authenticate({
       type: 'oauth',
       token: process.env.GH_TOKEN
